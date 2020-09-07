@@ -38,17 +38,6 @@ const signUp = async (emailId) => {
 
 const App = () => {
   const [email, setEmail] = useState('');
-  const donations = [
-    { amount: 100 },
-    { amount: 200 },
-    { amount: 300 }
-  ];
-
-  const doubledDonations = donations.forEach(donation => ({
-    ...donation,
-    amount: donation * 2
-  }));
-  console.log(doubledDonations);
   return (
     <div className="App pt-5">
       <input type="email" placeholder="Enter your email" onChange={e => setEmail(e.target.value)} />
