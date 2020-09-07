@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import "./styles.css";
+import "./style.css";
 import axios from "axios";
 import get from "lodash.get";
 
@@ -38,11 +38,22 @@ const signUp = async (emailId) => {
 
 const App = () => {
   const [email, setEmail] = useState('');
+  const donations = [
+    { amount: 100 },
+    { amount: 200 },
+    { amount: 300 }
+  ];
+
+  const doubledDonations = donations.forEach(donation => ({
+    ...donation,
+    amount: donation.amount * 2
+  }));
+  console.log(doubledDonations);
   return (
     <div className="App pt-5">
-      <input type="email" placeholder="email" onChange={e => setEmail(e.target.value)} />
-      <button type="button" onClick={() => signUp(email)}>
-        Click
+      <input type="email" placeholder="Enter your email" onChange={e => setEmail(e.target.value)} />
+      <button className="btn" type="button" onClick={() => signUp(email)}>
+        SignUp
       </button>
     </div>
   );
