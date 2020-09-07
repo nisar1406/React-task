@@ -1,0 +1,51 @@
+import React, { useState } from "react";
+// import "./styles.css";
+import axios from "axios";
+import get from "lodash.get";
+
+const signUp = async (emailId) => {
+  const checkUser = {
+    campaignUuid: "46aa3270-d2ee-11ea-a9f0-e9a68ccff42a",
+    data: { email: emailId }
+  };
+  const bodyObject = {
+    campaignUuid: "46aa3270-d2ee-11ea-a9f0-e9a68ccff42a",
+    data: {
+      firstName: "firstName",
+      lastName: "lastName",
+      email: emailId,
+      password: "password"
+    }
+  };
+  const response = await axios.post(
+    "https://api.raisely.com/v3/check-user",
+    checkUser
+  ).catch(err => {
+    alert(get(err, "response.data.errors.0.code"));
+  });
+
+  if (get(response, "data.data.status") === "OK") {
+    axios.post("https://api.raisely.com/v3/signup", bodyObject).then((res) => {
+      alert(get(res, "data.message"));
+    })
+      .catch(err => {
+        alert(get(err, "response.data.errors.0.code"));
+      })
+  } else if(get(response, "data.data.status") === "EXISTS") {
+    alert(get(response, "data.data.status"));
+  }
+};
+
+const App = () => {
+  const [email, setEmail] = useState('');
+  return (
+    <div className="App pt-5">
+      <input type="email" placeholder="email" onChange={e => setEmail(e.target.value)} />
+      <button type="button" onClick={() => signUp(email)}>
+        Click
+      </button>
+    </div>
+  );
+};
+
+export default App;
