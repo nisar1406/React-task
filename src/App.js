@@ -46,7 +46,7 @@ const App = () => {
 
   const doubledDonations = donations.forEach(donation => ({
     ...donation,
-    amount: donation.amount * 2
+    amount: donation * 2
   }));
   console.log(doubledDonations);
   return (
